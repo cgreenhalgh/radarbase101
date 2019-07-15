@@ -48,6 +48,17 @@ bin/radar-docker install XXX
 ```
 Note, don't just install with no arguments unless your machine is real powerful - 
 instead try a minimal subset of services.
+```
+bin/radar-docker up -d schema-registry-1
+bin/radar-docker up -d kafka-init
+bin/radar-docker up -d hotstorage
+bin/radar-docker up -d managementportal-app
+bin/radar-docker up -d webserver
+```
+
+try http://localhost:8080/managementportal/
+
+Username admin, password as per .env 
 
 Preferably change the nginx (webserver) config so that will still start
 without the extra services.
