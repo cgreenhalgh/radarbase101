@@ -101,7 +101,13 @@ tokens seem to be issued by management portal (only).
 
 ## Components
 
-NB "cp" = "Confluent Platform" - built on Kafka
+[confluent](https://docs.confluent.io/current/platform.html)
+offer a commercial stack on kafka. 
+The community verison includes the schema registry and associated support 
+(building on apache AVRO serialisation).
+The community version also includes a HTTP proxy for kafka, and some
+standard "connectors" for other platforms. 
+NB "cp" = "Confluent Platform".
 
 Web front-end
 nginx:1.14.0-alpine, ports 80, 443, radar-cp-hadoop-stack_webserver_1, 
@@ -260,6 +266,8 @@ Processes:
 
 ### Problem 1
 
+Note, fixed in branch dev as of 2019-07-15
+
 bin/radar-docker install
 ```
 ...
@@ -311,6 +319,8 @@ RUN curl -#o /usr/share/java/avro-tools.jar \
 ```
 
 ### Problem 2
+
+Note, docs updated as of 2019-07-15
 
 ```
 Databases created
@@ -434,11 +444,4 @@ ed3cfe035865        confluentinc/cp-kafka:4.1.0                  "/etc/confluent
 /dock…"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_zookeeper-3_1
 ```
-
-Note, [confluent](https://docs.confluent.io/current/platform.html)
-offer a commercial stack on kafka. 
-The community verison includes the schema registry and associated support 
-(building on apache AVRO serialisation).
-The community version also includes a HTTP proxy for kafka, and some
-standard "connectors" for other platforms. 
 
