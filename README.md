@@ -56,10 +56,20 @@ bin/radar-docker up -d managementportal-app
 bin/radar-docker up -d webserver
 ```
 
-try http://localhost:8080/managementportal/
+try...
 
+[managementportal](http://localhost:8080/managementportal/)
 Username admin, password as per .env 
 
+[kafkamanager](http://localhost:8080/kafkamanager/)
+Username kafkamanager-user, password as per .env
+Create cluster, specify zookeepers, `zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181`
+
+[porttainer](http://localhost:8080/portainer/)
+Username admin, password as per .env
+local node, connect
+
+TODO: 
 Preferably change the nginx (webserver) config so that will still start
 without the extra services.
 
