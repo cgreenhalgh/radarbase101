@@ -8,6 +8,31 @@ Chris Greenhalgh, The University of Nottingham, 2019
 
 [Main site](https://radar-base.org/)
 
+[Wiki](https://radar-base.atlassian.net/wiki/)
+
+[cite](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/444366849/Citing+the+RADAR-base+Platform)
+
+## local changes
+
+Note, my fork of [RADAR-Docker](https://github.com/cgreenhalgh/RADAR-Docker.git)
+
+changes:
+- nginx.conf files changed to let nginx start without proxied containers running (dns check) `dcompose-stack/radar-cp-hadoop-stack/etc/webserver/nginx.nossl.conf.template` /
+`.../nginx.conf.template`
+- docker-compose-lite.yml with non-replicated zookeeper, kafka and hadoop
+
+Lite start (after config)
+branch `lite`
+```
+cd RADAR-Docker/dcompose-stack/radar-cp-hadoop-stack/
+bin/radar-docker install FOO
+docker-compose -f docker-compose-lite.yml up -d webserver
+```
+specifically...
+- zookeeper-1
+
+
+
 ## Install
 
 [how to install](https://radar-base.org/index.php/2019/02/13/how-to-install-radar-base-using-radar-docker/)
