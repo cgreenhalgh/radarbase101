@@ -12,6 +12,11 @@ Chris Greenhalgh, The University of Nottingham, 2019
 
 [cite](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/444366849/Citing+the+RADAR-base+Platform)
 
+## questions
+
+what are the topics? why?
+seem to be 
+
 ## local changes
 
 Note, my fork of [RADAR-Docker](https://github.com/cgreenhalgh/RADAR-Docker.git)
@@ -30,7 +35,11 @@ docker-compose -f docker-compose-lite.yml up -d webserver
 ```
 specifically...
 - zookeeper-1
+...
 
+Note, [process id -> docker](https://blog.stangroome.com/2017/12/05/inspecting-docker-container-processes-from-the-host/)
+
+For kafka debug, try kafka-manager
 
 
 ## Install
@@ -285,6 +294,120 @@ Processes:
 - confluentinc/cp-zookeeper:4.1.0, radar-cp-hadoop-stack_zookeeper-1_1 ...-2_1 ...-3_1
 - portainer/portainer:1.19.1, radar-cp-hadoop-stack_portainer_1
 
+## Topics & messages
+
+Topics are generated from the 
+[specifications](https://github.com/RADAR-base/RADAR-Schemas/tree/master/specifications)
+by the kafka-init process, which also compiles are registers the AVRO 
+[schemas](https://github.com/RADAR-base/RADAR-Schemas/tree/master/commons).
+
+The specifications under `streams/` get special treatment: 
+- if `windowed` then a set of time-based topics is generated (`..._10sec`, ...)
+
+Streams are run by [RADAR-Backend](https://github.com/RADAR-base/RADAR-Backend)
+and (independently) configured in 
+[radar.yml](https://github.com/RADAR-base/RADAR-Backend/blob/master/radar.yml)
+
+Different types of streams are present:
+- instanced explicitly, e.g. `org.radarcns.stream.empatica.E4AccelerationStream` (which generate windowed data versions)
+- source_statistics - configurable for multiple sources/topics (just first and last time data seen)
+- battery_monitor - configurable for multiple topics (but shared email config)
+- disconnect_monitor - configurable for multiple topics (but shared email config)
+
+Each message has a key and value.
+Observation key has:
+- `projectId` (string) Project identifier. Null if unknown or the user is not enrolled in a project.
+- `userId` (string) User Identifier created during the enrolment.
+- `sourceId` (string) Unique identifier associated with the source.
+
+Aggregate key adds:
+- `timeStart` (double) Time (seconds since the UNIX Epoch) of the time window start.
+- `timeEnd` (double) Time (seconds since the UNIX Epoch) of the time window end.
+
+There is also a RecordSet for bulk binary transfer, with same properties as Observation key 
+plus key and value schemas (IDs) and data.
+
+### all registered topics
+
+from a running/configured instance
+
+`_schemas`
+`android_biovotion_vsm1_acceleration`
+`android_biovotion_vsm1_acceleration_10min` ...10sec ...1day ...1hour ...1min ...1week
+...
+`android_bittium_faros_acceleration` (no ..._period variants)
+...
+`android_empatica_e4_acceleration` 
+`android_empatica_e4_acceleration_10min` ...
+`android_local_weather`
+`android_pebble_2_acceleration`
+...
+`android_pebble_2_heartrate`
+`android_pebble_2_heartrate_filtered`
+`android_phone_acceleration`
+`android_phone_acceleration_10min` ...
+`android_phone_call`
+`android_phone_contacts`
+...
+`android_phone_usage_event`
+`android_phone_usage_event_aggregated`
+`android_phone_usage_event_output`
+...
+`application_device_info`
+...
+`connect_fitbit_activity_log`
+`connect_fitbit_intraday_heart_rate`
+`connect_fitbit_intraday_steps`
+`connect_fitbit_sleep_classic`
+`connect_fitbit_sleep_stages`
+`connect_fitbit_time_zone`
+`notification_thinc_it`
+`questionnaire_audio`
+`questionnaire_completion_log`
+`questionnaire_esm`
+...
+`questionnaire_phq8`
+...
+`source_statistics_android_phone`
+...
+`task_2MW_test`
+...
+`thincit_code_breaker`
+...
+
+## Apps
+
+### passive (pRMT)
+
+[git](https://github.com/RADAR-base/radar-prmt-android)
+
+Note, configured via Firebase, which includes kafka URL. 
+So presumably this isn't in the QRCode, and presumably then
+i'll need to build a custom version of the app to connect
+to a different server.
+But 
+[the install guide](https://radar-base.org/index.php/2019/02/13/how-to-install-radar-base-using-radar-docker/)
+seems to suggest just using the regular app is OK.
+
+Radar passive RMT app requires QR scan with no fallback, so can't 
+do this on emulator.
+
+QR code is URL to (.env configured) host and management portal URL
+with token. So URL must be reachable from phone.
+
+### active (aRMT)
+
+[git](https://github.com/RADAR-base/RADAR-Questionnaire)
+
+This is explicitly configured in the source, including the 
+server URL. 
+
+Protocols are downloaded from GIT as explained in the 
+[readme](https://github.com/RADAR-base/RADAR-Questionnaire).
+
+There is documentation for using local or firebase notifications
+but I don't know how well they both work now given other discussions
+elsewhere in the documentation.
 
 
 ## install problems
