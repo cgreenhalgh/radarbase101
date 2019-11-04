@@ -21,6 +21,12 @@ seem to be
 
 Note, my fork of [RADAR-Docker](https://github.com/cgreenhalgh/RADAR-Docker.git)
 
+```
+git clone https://github.com/cgreenhalgh/RADAR-Docker.git
+cd RADAR-Docker
+git checkout lite
+```
+
 changes:
 - nginx.conf files changed to let nginx start without proxied containers running (dns check) `dcompose-stack/radar-cp-hadoop-stack/etc/webserver/nginx.nossl.conf.template` /
 `.../nginx.conf.template`
@@ -51,6 +57,10 @@ pre-reqs:
 - docker, docker-compose, git
 - also java for keytool
 
+```
+sudo apt install -y openjdk-8-jre-headless 
+```
+
 Ports:
 - 80 - http (webserver)
 - 443 - https (webserver, if enabled)
@@ -67,7 +77,7 @@ cp etc/env.template .env
 Edit .env - see docs. e.g. standalone VM test
 - `ENABLE_HTTPS` no
 - `FROM_EMAIL`...
-
+- `MANAGEMENTPORTAL_CATALOGUE_SERVER_ENABLE_AUTO_IMPORT=true`
 ```
 cp etc/smtp.env.template etc/smtp.env
 ```
@@ -507,10 +517,10 @@ CONTAINER ID        IMAGE                                        COMMAND
            CREATED              STATUS                                 PORTS
                                   NAMES
 74aed96ac4bc        nginx:1.14.0-alpine                          "nginx -g 'daem
-on of…"    About a minute ago   Up 4 seconds                           0.0.0.0:8
+on ofï¿½"    About a minute ago   Up 4 seconds                           0.0.0.0:8
 0->80/tcp, 0.0.0.0:443->443/tcp   radar-cp-hadoop-stack_webserver_1
 0a5f7f22ce7e        radarbase/radar-connect-hdfs-sink:0.2.0      "/etc/confluent
-/dock…"    About a minute ago   Up About a minute (health: starting)
+/dockï¿½"    About a minute ago   Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_radar-hdfs-connector_1
 aaaadab454c4        radarcns/radar-dashboard:2.1.0               "./init.sh"
            About a minute ago   Up About a minute (healthy)
@@ -519,77 +529,77 @@ aaaadab454c4        radarcns/radar-dashboard:2.1.0               "./init.sh"
            About a minute ago   Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_rest-api_1
 6db4866d7f5a        radarbase/hdfs:3.0.3-alpine                  "entrypoint.sh
-datan…"    About a minute ago   Up About a minute (health: starting)
+datanï¿½"    About a minute ago   Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_hdfs-datanode-2_1
 c1051e00a598        radarbase/hdfs:3.0.3-alpine                  "entrypoint.sh
-datan…"    About a minute ago   Up About a minute (health: starting)
+datanï¿½"    About a minute ago   Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_hdfs-datanode-3_1
 0bb2f2bbd62f        radarbase/hdfs:3.0.3-alpine                  "entrypoint.sh
-datan…"    About a minute ago   Up About a minute (health: starting)
+datanï¿½"    About a minute ago   Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_hdfs-datanode-1_1
 62bec0f23e19        radarbase/radar-gateway:0.3.3                "radar-gateway
-/etc/…"    2 minutes ago        Up About a minute (health: starting)
+/etc/ï¿½"    2 minutes ago        Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_gateway_1
 79bdadb3c186        radarbase/kafka-connect-mongodb-sink:0.2.2   "/etc/confluent
-/dock…"    2 minutes ago        Up About a minute (health: starting)
+/dockï¿½"    2 minutes ago        Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_radar-mongodb-connector_
 1
 5105641e6b38        radarbase/radar-backend:0.4.0                "radar-backend-
-init …"    2 minutes ago        Up About a minute
+init ï¿½"    2 minutes ago        Up About a minute
                                   radar-cp-hadoop-stack_radar-backend-stream_1
 97f0f6814aec        radarbase/radar-backend:0.4.0                "radar-backend-
-init …"    2 minutes ago        Up About a minute
+init ï¿½"    2 minutes ago        Up About a minute
                                   radar-cp-hadoop-stack_radar-backend-monitor_1
 e98c7d115681        radarbase/management-portal:0.5.3            "/bin/sh -c 'ec
-ho \"T…"   2 minutes ago        Up About a minute (health: starting)   5701/udp,
+ho \"Tï¿½"   2 minutes ago        Up About a minute (health: starting)   5701/udp,
  8080/tcp                         radar-cp-hadoop-stack_managementportal-app_1
 207efd149f27        radarbase/hdfs:3.0.3-alpine                  "entrypoint.sh
-namen…"    2 minutes ago        Up About a minute (health: starting)
+namenï¿½"    2 minutes ago        Up About a minute (health: starting)
                                   radar-cp-hadoop-stack_hdfs-namenode-1_1
 34ad98cdf151        radarbase/radar-hotstorage:0.1               "/entrypoint.sh
- ./in…"    2 minutes ago        Up 2 minutes (healthy)
+ ./inï¿½"    2 minutes ago        Up 2 minutes (healthy)
                                   radar-cp-hadoop-stack_hotstorage_1
 6f0192d1bc66        confluentinc/cp-kafka-rest:4.1.0             "/etc/confluent
-/dock…"    2 minutes ago        Up 2 minutes (health: starting)
+/dockï¿½"    2 minutes ago        Up 2 minutes (health: starting)
                                   radar-cp-hadoop-stack_rest-proxy-1_1
 1fa66348986c        radarbase/kafka-manager:1.3.3.18             "./entrypoint.s
 h"         2 minutes ago        Up 17 seconds (health: starting)
                                   radar-cp-hadoop-stack_kafka-manager_1
 78c28af5f778        radarbase/kafka-init:0.4.3                   "init.sh topic_
-init.…"    2 minutes ago        Up 2 minutes
+init.ï¿½"    2 minutes ago        Up 2 minutes
                                   radar-cp-hadoop-stack_kafka-init_1
 63c9ce2485dd        namshi/smtp:latest                           "/bin/entrypoin
-t.sh …"    2 minutes ago        Up 2 minutes                           25/tcp
+t.sh ï¿½"    2 minutes ago        Up 2 minutes                           25/tcp
                                   radar-cp-hadoop-stack_smtp_1
 f6203949152a        portainer/portainer:1.19.1                   "/portainer --a
-dmin-…"    2 minutes ago        Up 2 minutes
+dmin-ï¿½"    2 minutes ago        Up 2 minutes
                                   radar-cp-hadoop-stack_portainer_1
 cbfbf7dd88d9        radarbase/kafka-init:0.4.3                   "init.sh radar-
-schem…"    2 minutes ago        Up 2 minutes (health: starting)
+schemï¿½"    2 minutes ago        Up 2 minutes (health: starting)
                                   radar-cp-hadoop-stack_catalog-server_1
 7c340e8e5e9d        radarbase/postgres:10.6-alpine-1             "docker-entrypo
-int.s…"    5 minutes ago        Up 5 minutes (healthy)
+int.sï¿½"    5 minutes ago        Up 5 minutes (healthy)
                                   radar-cp-hadoop-stack_radarbase-postgresql_1
 d07f7ae8b635        confluentinc/cp-schema-registry:4.1.0        "/etc/confluent
-/dock…"    About an hour ago    Up About an hour (healthy)
+/dockï¿½"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_schema-registry-1_1
 aad4c469e11a        confluentinc/cp-kafka:4.1.0                  "/etc/confluent
-/dock…"    About an hour ago    Up About an hour (healthy)
+/dockï¿½"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_kafka-3_1
 ed3cfe035865        confluentinc/cp-kafka:4.1.0                  "/etc/confluent
-/dock…"    About an hour ago    Up About an hour (healthy)
+/dockï¿½"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_kafka-2_1
 1a2097c7fa4d        confluentinc/cp-kafka:4.1.0                  "/etc/confluent
-/dock…"    About an hour ago    Up About an hour (healthy)
+/dockï¿½"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_kafka-1_1
 70cf7e98c94b        confluentinc/cp-zookeeper:4.1.0              "/etc/confluent
-/dock…"    About an hour ago    Up About an hour (healthy)
+/dockï¿½"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_zookeeper-2_1
 04ef4750cfbe        confluentinc/cp-zookeeper:4.1.0              "/etc/confluent
-/dock…"    About an hour ago    Up About an hour (healthy)
+/dockï¿½"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_zookeeper-1_1
 032a8417dff9        confluentinc/cp-zookeeper:4.1.0              "/etc/confluent
-/dock…"    About an hour ago    Up About an hour (healthy)
+/dockï¿½"    About an hour ago    Up About an hour (healthy)
                                   radar-cp-hadoop-stack_zookeeper-3_1
 ```
 

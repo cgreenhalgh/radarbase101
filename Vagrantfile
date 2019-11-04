@@ -68,7 +68,7 @@ Vagrant.configure("2") do |config|
     sudo apt-get update
     sudo apt-get install -y git
     # docker https://docs.docker.com/install/linux/docker-ce/ubuntu/
-    sudo sudo apt-get install -y \
+    sudo apt-get install -y \
       apt-transport-https \
       ca-certificates \
       curl \
@@ -84,5 +84,8 @@ Vagrant.configure("2") do |config|
     # docker-compose https://docs.docker.com/compose/install/
     sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
+    # for keytool
+    sudo apt install -y openjdk-8-jre-headless 
+    sudo apt install -y vim
   SHELL
 end
