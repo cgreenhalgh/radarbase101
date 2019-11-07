@@ -69,6 +69,7 @@ and
 echo "export PATH=\"$PATH:$(yarn global bin)\"" >> .bashrc
 source ~/.bashrc
 ```
+
 yarn
 ```
 NB - maybe its omitted from git?!
@@ -78,6 +79,8 @@ mkdir www
 ```
 cordova prepare
 ```
+
+Hmm, not working (can't find ionic-app-scripts) - ionic info can't find npm - is that why?
 ```
 ionic serve
 ```
