@@ -65,6 +65,7 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
+    # Docker...
     sudo apt-get update
     sudo apt-get install -y git
     # docker https://docs.docker.com/install/linux/docker-ce/ubuntu/
@@ -84,8 +85,10 @@ Vagrant.configure("2") do |config|
     # docker-compose https://docs.docker.com/compose/install/
     sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
-    # for keytool
+    # for keytool (used by radar-base)
     sudo apt install -y openjdk-8-jre-headless 
     sudo apt install -y vim
+    # for radar questionnaire app - node.js & yarn
+    # see activeapp.md for some more pre-reqs, e.g. android SDK, yarn, etc.
   SHELL
 end
