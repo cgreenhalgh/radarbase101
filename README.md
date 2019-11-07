@@ -4,6 +4,8 @@ i.e. some initial explorations.
 
 Chris Greenhalgh, The University of Nottingham, 2019
 
+See also [active app stuff](activeapp.md)
+
 ## RADAR-BASE
 
 [Main site](https://radar-base.org/)
@@ -12,10 +14,14 @@ Chris Greenhalgh, The University of Nottingham, 2019
 
 [cite](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/444366849/Citing+the+RADAR-base+Platform)
 
+## useful docs
+
+[adding an app](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/72122477/Integrating+new+Apps+and+Devices+into+RADAR-base+platform)
+
 ## questions
 
 what are the topics? why?
-seem to be 
+seem to be data source types.
 
 ## local changes
 
@@ -603,3 +609,8 @@ ed3cfe035865        confluentinc/cp-kafka:4.1.0                  "/etc/confluent
                                   radar-cp-hadoop-stack_zookeeper-3_1
 ```
 
+## Fitbit
+
+[wiki info](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/1001619461/Integrated+Devices+Additional+Configuration)
+
+[user registration guide](https://radar-base.atlassian.net/wiki/download/attachments/1001619461/FitBit%20User%20Registration%20Guide.pdf?version=1&modificationDate=1556033884453&cacheVersion=1&api=v2)
