@@ -37,6 +37,10 @@ suggests ionic 5.4.2, cordova-android 8.1.0, cordova-common 3.1.0.
 
 I'm on ubuntu bionic for now...
 
+### problems with nvm
+
+Note: tried nvm; later hit problems with ionic serve not picking up the ionic installation.
+
 install nvm - latest as of 2019-11-07
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
@@ -47,11 +51,31 @@ install node - lts ?!
 nvm install 12
 ```
 
+### problems with node
+
+this had a problem at cordova and ionic...
+
+native/package node install from [nodesource](https://github.com/nodesource/distributions/blob/master/README.md)
+v12 for now (stable)
+```
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+### the standard bit...
+
 [install yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable) - latest stable 1.19.1 
 ```
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update && sudo apt install --no-install-recommends yarn
+```
+package node install:
+```
+sudo apt update && sudo apt install yarn
+```
+X or nvm node install:
+```
+X sudo apt update && sudo apt install --no-install-recommends yarn
 ```
 
 ```
@@ -62,28 +86,32 @@ cd RADAR-Questionnaire
 back to radar instructions...
 ```
 yarn global add ionic cordova
-```
-(installed ionic 5.4.5 & cordova 9.0.0)
-and
-```
 echo "export PATH=\"$PATH:$(yarn global bin)\"" >> .bashrc
 source ~/.bashrc
 ```
-
-yarn
+(installed ionic 5.4.5 & cordova 9.0.0) - previous version would be cordova 8.1.2
+or skip that and try 
 ```
-NB - maybe its omitted from git?!
+npm -g install ionic cordova@8.1.2
+```
+
+NB the following is needed for cordova to believe this is a cordova project - maybe its omitted from git?!
 ```
 mkdir www
 ```
+
+back on script...
 ```
 cordova prepare
 ```
+node: not working (did work once with nvm version of node ... ??)
 
-Hmm, not working (can't find ionic-app-scripts) - ionic info can't find npm - is that why?
 ```
 ionic serve
 ```
+nvm: Hmm, not working (can't find ionic-app-scripts) - ionic info can't find npm - is that why?
+`npm install` ?!
+`npm install cordova@8.1.2` ?! (needs to find cordova CLI to find platforms & plugins!)
 
 ### Android
 
