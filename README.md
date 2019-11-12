@@ -4,7 +4,9 @@ i.e. some initial explorations.
 
 Chris Greenhalgh, The University of Nottingham, 2019
 
-See also [active app stuff](activeapp.md)
+See also 
+- [active app stuff](activeapp.md)
+- [passive app stuff (android only)](passiveapp.md)
 
 ## RADAR-BASE
 
@@ -53,6 +55,16 @@ Note, [process id -> docker](https://blog.stangroome.com/2017/12/05/inspecting-d
 
 For kafka debug, try kafka-manager
 
+
+Ok, so 
+start
+```
+docker-compose -f docker-compose-lite.yml up -d webserver
+```
+stop
+```
+docker-compose -f docker-compose-lite.yml down
+```
 
 ## Install
 
