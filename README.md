@@ -93,7 +93,8 @@ cd RADAR-Docker/dcompose-stack/radar-cp-hadoop-stack/
 cp etc/env.template .env
 ```
 Edit .env - see docs. e.g. standalone VM test
-- `ENABLE_HTTPS` no
+- `SERVER_NAME` - must be routable from (e.g.) emulator, say external IP of machine.
+- `ENABLE_HTTPS` yes (passive app needs it!) (`SELF_SIGNED_CERT`=yes)
 - `FROM_EMAIL`...
 - `MANAGEMENTPORTAL_CATALOGUE_SERVER_ENABLE_AUTO_IMPORT=true`
 ```
