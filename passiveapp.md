@@ -179,11 +179,8 @@ e.g.
 ```
 curl -v --insecure https://128.243.22.74/kafka/topics/android_phone_acceleration -X POST
 ```
-Hmm, check radar-gateway process - looks like nginx config still wrong
-```
-2019-11-13 16:34:18 UTC [-4] ERROR - [405] http://128.243.22.74:80/radar-gateway/: HTTP 405 Method Not Allowed[org.radarcns.gateway.exception.WebApplicationExceptionMapper:19]
-```
-??
+Probably resolved - now 401 (unauthorized)
+
 
 ### monitor
 
@@ -202,4 +199,53 @@ zookeeper hosts
 
 Shows 1 topic ('_schemas') and one broker.
 
-Register topics??
+Register topics?? - if missing need to do bin/radar-docker install xxx
+
+### fitbit
+
+Needs optional services, `radar-fitbit-connector`, `radar-rest-sources-backend`, probably `radar-rest-sources-authorizer`
+
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml up -d radar-fitbit-connector radar-rest-sources-backend radar-rest-sources-authorizer
+```
+
+NB config...
+radar-fitbit-connector:
+- etc/fitbit/docker/source-fitbit.properties
+- etc/fitbit/docker/users
+- (fitbit-logs)
+
+radar-rest-sources-backend:
+- etc/rest-source-authorizer/
+- specifically app-includes/rest_source_clients_configs.yml ?
+
+Ahh, see
+```
+For the Fitbit Connector, please specify the FITBIT_API_CLIENT_ID and FITBIT_API_CLIENT_SECRET in the .env file. Then copy the etc/fitbit/docker/users/fitbit-user.yml.template to etc/fitbit/docker/users/fitbit-user.yml and fill out all the details of the fitbit user.
+```
+and [more info](https://github.com/RADAR-base/RADAR-REST-Connector#usage)
+
+Client id and secret end up in etc/fitbit/docker/source-fitbit.properties.
+Old-style [fitbit console](https://dev.fitbit.com/apps)
+
+For this file-style I think you need to set 
+`fitbit.user.repository.class` to `org.radarbase.connect.rest.fitbit.user.YamlUserRepository`
+and leave `fitbit.user.dir` as default (`/var/lib/kafka-connect-fitbit-source/users`)
+
+Generate user id, access & refresh tokens using 
+[fitbit page](https://dev.fitbit.com/apps/oauthinteractivetutorial),
+"authorization code flow", working through the steps.
+
+Add an entry to etc/fitbit/docker/users/fitbit-user.yml
+Be careful of dates or it generates a LOT of requests - exeeds quotas.
+
+(kafka lost all the topics - installed again)
+
+
+
+Note, if using the radar-rest-sources-backend...
+
+That also has the fitbit app client id/secret, in etc/rest-source-authorizer/rest_source_clients_configs.yml
+
+So add those...
+not much happening here... (what users?)
