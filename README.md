@@ -57,7 +57,7 @@ For kafka debug, try kafka-manager
 
 
 Ok, so 
-start
+start (need to have done "bin/radar-docker install" previously)
 ```
 docker-compose -f docker-compose-lite.yml up -d webserver
 ```

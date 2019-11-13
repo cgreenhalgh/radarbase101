@@ -171,4 +171,35 @@ org.radarcns.android.auth.portal.ManagementPortalClient.privacyPolicyUrl=http://
          ... 16 more
 ```
 
-nginx config??
+Now 
+```
+10.0.2.2 - - [13/Nov/2019:16:14:14 +0000] "POST /kafka/topics/android_phone_acceleration HTTP/1.1" 405 0 "-" "okhttp/4.0.1"
+```
+e.g.
+```
+curl -v --insecure https://128.243.22.74/kafka/topics/android_phone_acceleration -X POST
+```
+Hmm, check radar-gateway process - looks like nginx config still wrong
+```
+2019-11-13 16:34:18 UTC [-4] ERROR - [405] http://128.243.22.74:80/radar-gateway/: HTTP 405 Method Not Allowed[org.radarcns.gateway.exception.WebApplicationExceptionMapper:19]
+```
+??
+
+### monitor
+
+try kafkamanager, 
+https://128.243.22.74/kafkamanager/
+username default `kafkamanager-user`, password see .env
+
+Needs to be running...
+```
+docker-compose -f docker-compose-lite.yml up -d kafka-manager
+```
+Add cluster
+'local'
+zookeeper hosts
+'zoookeeper-1'
+
+Shows 1 topic ('_schemas') and one broker.
+
+Register topics??
