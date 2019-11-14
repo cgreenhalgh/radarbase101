@@ -66,6 +66,78 @@ stop
 docker-compose -f docker-compose-lite.yml down
 ```
 
+
+### monitor
+
+try kafkamanager, 
+https://128.243.22.74/kafkamanager/
+username default `kafkamanager-user`, password see .env
+
+Needs to be running...
+```
+docker-compose -f docker-compose-lite.yml up -d kafka-manager
+```
+Add cluster
+'local'
+zookeeper hosts
+'zoookeeper-1'
+
+Shows 1 topic ('_schemas') and one broker.
+
+Register topics?? - if missing need to do bin/radar-docker install xxx
+
+You can also see offsets -> messags are flowing, although I don't see any other trace.
+
+### monitor kafka data?
+
+kafka topics
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml \
+ exec kafka-1 kafka-topics --zookeeper zookeeper-1:2181 --list
+```
+
+See 
+[bin/radar-kafka-consumer](https://github.com/RADAR-base/RADAR-Docker/blob/master/dcompose-stack/radar-cp-hadoop-stack/bin/radar-kafka-consumer)
+?!
+This is kind of what that script does, but it only prints when i added `--partition 0 --offset 0` (new or old)
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml exec schema-registry-1 kafka-avro-console-consumer \
+ --bootstrap-server kafka-1:9092 --property schema.registry.url=http://schema-registry-1:8081 \
+ --property print.key=true --topic android_phone_light --partition 0 --offset 0
+```
+
+But this works for me
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml exec schema-registry-1 \
+ kafka-avro-console-consumer --zookeeper zookeeper-1:2181 --topic android_phone_light --from-beginning
+```
+
+See 
+[confluent docs](https://docs.confluent.io/current/connect/quickstart.html)
+
+### get data out?
+
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml up -d radar-hdfs-connector 
+```
+ 
+see
+[wiki hadoop](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/49512463/Guide+to+RADAR+HDFS+Connector)
+and
+[wiki csv formats](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/491880449/Data+Extraction)
+```
+To extract data from HDFS
+Create a directory to collect written data
+
+sudo mkdir <dir-name>
+Change current directory of command line to that directory
+
+cd <dir-name>
+Extract data from HDFS
+
+hadoop fs -get /topics
+```
+
 ## Install
 
 [how to install](https://radar-base.org/index.php/2019/02/13/how-to-install-radar-base-using-radar-docker/)
