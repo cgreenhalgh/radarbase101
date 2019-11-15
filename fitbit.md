@@ -1,5 +1,11 @@
 # radar fitbit
 
+See
+[wiki info](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/1001619461/Integrated+Devices+Additional+Configuration)
+
+[user registration guide](https://radar-base.atlassian.net/wiki/download/attachments/1001619461/FitBit%20User%20Registration%20Guide.pdf?version=1&modificationDate=1556033884453&cacheVersion=1&api=v2)
+
+
 Needs optional services, `radar-fitbit-connector`, `radar-rest-sources-backend`, probably `radar-rest-sources-authorizer`
 
 ```
@@ -46,3 +52,8 @@ That also has the fitbit app client id/secret, in etc/rest-source-authorizer/res
 
 So add those...
 not much happening here... (what users?)
+
+Check this out: [user registration guide](https://radar-base.atlassian.net/wiki/download/attachments/1001619461/FitBit%20User%20Registration%20Guide.pdf?version=1&modificationDate=1556033884453&cacheVersion=1&api=v2)
+"Go to `<your-platform-url>/rest-sources/authorizer/`",
+"enter the credentials given by the system
+administrator for “Rest source authorizer”"

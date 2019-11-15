@@ -7,6 +7,8 @@ Chris Greenhalgh, The University of Nottingham, 2019
 See also 
 - [active app stuff](activeapp.md)
 - [passive app stuff (android only)](passiveapp.md)
+- [fitbit stuff](fitbit.md)
+- [extending stuff](extending.md)
 
 ## RADAR-BASE
 
@@ -99,7 +101,7 @@ docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml \
 See 
 [bin/radar-kafka-consumer](https://github.com/RADAR-base/RADAR-Docker/blob/master/dcompose-stack/radar-cp-hadoop-stack/bin/radar-kafka-consumer)
 ?!
-This is kind of what that script does, but it only prints when i added `--partition 0 --offset 0` (new or old)
+it only prints when i added `--partition 0 --offset 0` (new or old)
 ```
 docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml exec schema-registry-1 kafka-avro-console-consumer \
  --bootstrap-server kafka-1:9092 --property schema.registry.url=http://schema-registry-1:8081 \
@@ -109,11 +111,18 @@ docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml exec sch
 But this works for me
 ```
 docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml exec schema-registry-1 \
- kafka-avro-console-consumer --zookeeper zookeeper-1:2181 --topic android_phone_light --from-beginning
+ kafka-avro-console-consumer --zookeeper zookeeper-1:2181 --topic android_phone_light --from-beginning \
+ --property print.key=true --property schema.registry.url=http://schema-registry-1:8081
 ```
-
+=>
+```
+{"projectId":{"string":"test1"},"userId":"d27a13f0-f813-40a3-b9d5-367756094235","sourceId":"20de1edb-c21f-4031-8ae4-78903414af9f"}      {"time":1.573735772804E9,"timeReceived":1.573735772804E9,"light":0.0}
+...
+```
 See 
 [confluent docs](https://docs.confluent.io/current/connect/quickstart.html)
+
+Note, sensors run about 20Hz! lots of data...
 
 ### get data out?
 
@@ -696,6 +705,5 @@ ed3cfe035865        confluentinc/cp-kafka:4.1.0                  "/etc/confluent
 
 ## Fitbit
 
-[wiki info](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/1001619461/Integrated+Devices+Additional+Configuration)
+See [fitbit](fitbit.md)
 
-[user registration guide](https://radar-base.atlassian.net/wiki/download/attachments/1001619461/FitBit%20User%20Registration%20Guide.pdf?version=1&modificationDate=1556033884453&cacheVersion=1&api=v2)
