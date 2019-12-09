@@ -5,8 +5,8 @@ i.e. some initial explorations.
 Chris Greenhalgh, The University of Nottingham, 2019
 
 See also 
-- [active app stuff](activeapp.md)
-- [passive app stuff (android only)](passiveapp.md)
+- [active app stuff](activeapp/README.md)
+- [passive app stuff (android only)](passiveapp/README.md)
 - [fitbit stuff](fitbit.md)
 - [extending stuff](extending.md)
 
