@@ -197,8 +197,12 @@ echo 'export PATH=$PATH:/opt/gradle/gradle-6.0.1/bin' >> ~/.bashrc
 
 From .travis - build
 ```
-export ANDROID_HOME=~
-TERM=; fastlane android build_debug
+echo 'export ANDROID_HOME=~' >> ~/.bashrc
+TERM=ansi; fastlane android build_debug
+```
+breaking on 
+```
+TERM=ansi;ionic cordova compile android --no-interactive --debug --device -- -- --cordovaNoFetch=false
 ```
 
 ### ...
