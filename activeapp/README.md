@@ -331,3 +331,11 @@ These are (all?) auto-generated from REDCap definitions.
 
 E.g. see 
 [test_text](https://github.com/cgreenhalgh/RADAR-aRMT-protocols/blob/master/questionnaires/test_text/test_text_armt.json)
+
+Hmm.
+Each questionnaire type maps to a different kafka topic, 'questionnaire_NAME'. 
+These are listed in 
+[the aRMT spec](https://github.com/RADAR-base/RADAR-Schemas/blob/master/specifications/active/aRMT-1.4.3.yml)
+(currently version 1.4.3).
+
+(And APP_EVENT aka questionnaire_app_event is also here, but not registered in my instance)
