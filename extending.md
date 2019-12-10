@@ -39,6 +39,19 @@ and there is probably a '-m TOPIC' option to limit activity.
 Init.sh execs its arguments, so it should be possible to call radar-schemas-tools directly as args.
 Main commands are 'validate', 'list', 'create' and 'register'
 
+### management portal
+
+A catalogue server is runusing kafka-init radar-schemas-tools serve /schema/merged
+
+if management portal app is started with 
+MANAGEMENTPORTAL_CATALOGUE_SERVER_ENABLE_AUTO_IMPORT
+
+currently docker image radarbase/management-portal:0.5.5
+from [management portal](https://github.com/RADAR-base/ManagementPortal)
+./src/main/java/org/radarcns/management/config/SourceTypeLoader.java
+
+Runs only on start-up.
+
 ## Schemas
 
 Confluence/kafka clients use AVRO to encode data for topics.
