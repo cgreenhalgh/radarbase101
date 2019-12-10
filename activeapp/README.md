@@ -158,13 +158,16 @@ For secret.ts see
 i.e. Copy src/assets/data/secret.ts.template to src/assets/data/secret.ts and fill in
 value for `DefaultSourceProducerAndSecretExport` 'aRMT:<aRMT-secret>'
 
+Note, value is set in the management portal, oauth clients. 
+Ensure dynamic registration also set ('RADAR', 'aRMT-App', '1.4.3')
+
 Note firebase can set
-- `protocol_base_url` (default to value in 
+- `protocol_base_url` (default to value in defaultConfig)
 - `oauth_client_secret`  (default to value in secret.ts)
 
 in src/assets/data/defaultConfig.ts can set
 - DefaultEndPoint 
-- DefaultProtocolGithubRepo 
+- DefaultProtocolGithubRepo - use your own repo
 - DefaultSchemaGithubRepo 
 - FCMPluginProjectSenderId 
 
@@ -236,3 +239,49 @@ tools/bin/sdkmanager "build-tools;29.0.2" "platforms;android-28"
 ```
 echo "export PATH=${PATH}:/home/vagrant/tools/bin" >> ~/.bashrc
 
+## changes
+
+Won't access an IP address - why does there have to be a short word at the end of the host name?
+```
+export const URLRegEx = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+```
+->
+```
+export const URLRegEx = '(https?://)?([\\da-z.-]+)(\\.([a-z.]{2,6}))?[/\\w .-]*/?'
+```
+
+Ignore SSL certificate error?
+
+For browser, install certificate extracted from webserver container, 
+/etc/letsencrypt/live/localhost/fullchain.pem, and install as trusted root.
+
+For Android,
+[see this](http://ivancevich.me/articles/ignoring-invalid-ssl-certificates-on-cordova-android-ios/)
+
+but note, seems to actually be in `./platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebViewClient.java`
+
+Enabled by default in debug build. Otherwise edit.
+
+## protocols
+
+For project 'test1' attempts to fetch 
+`https://api.github.com/repos/RADAR-Base/RADAR-aRMT-protocols/contents/test1/protocol.json?ref=master`
+
+Clone `https://github.com/RADAR-Base/RADAR-aRMT-protocols` 
+and change `DefaultProtocolGithubRepo` in `src/assets/data/defaultConfig.ts`
+to your user/repo name.
+
+E.g. copy `aRMT-TEST/protocol.json` to your new project directory.
+
+## App problems
+
+Won't upload results,
+```
+2VM1058:1 GET https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest 404
+...
+(index):1 Access to XMLHttpRequest at 'https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest' from origin 'http://128.243.22.74:8100' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+log.service.ts:21 Failed to get latest Kafka schema versions: Http failure response for https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest: 0 Unknown Error HttpErrorResponse {headers: HttpHeaders, status: 0, statusText: "Unknown Error", url: "https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest", ok: false, …}
+log.service.ts:10 (2) ["Firebase Event", "send_error"]
+log.service.ts:10 (2) ["Firebase Event", "send_error"]
+2log.service.ts:21 Failed to send data from cache to kafka: Error: Failed to get latest Kafka schema versions: Http failure response for https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest: 0 Unknown Error Error: ...
+``` 

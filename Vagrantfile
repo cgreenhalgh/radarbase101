@@ -55,8 +55,8 @@ Vagrant.configure("2") do |config|
     # Display the VirtualBox GUI when booting the machine
     # vb.gui = true
   
-    # Customize the amount of memory on the VM:
-    vb.memory = "4096"
+    # Customize the amount of memory on the VM: (radar needs more than 4G even with non-replicated)
+    vb.memory = "8192"
   end
   #
   # View the documentation for the provider you are using for more

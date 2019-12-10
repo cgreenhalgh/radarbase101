@@ -47,7 +47,7 @@ branch `lite`
 ```
 cd RADAR-Docker/dcompose-stack/radar-cp-hadoop-stack/
 bin/radar-docker install FOO
-docker-compose -f docker-compose-lite.yml up -d webserver
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml up -d webserver managementportal-app
 ```
 specifically...
 - zookeeper-1
