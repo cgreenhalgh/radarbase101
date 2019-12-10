@@ -280,8 +280,26 @@ Won't upload results,
 2VM1058:1 GET https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest 404
 ...
 (index):1 Access to XMLHttpRequest at 'https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest' from origin 'http://128.243.22.74:8100' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-log.service.ts:21 Failed to get latest Kafka schema versions: Http failure response for https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest: 0 Unknown Error HttpErrorResponse {headers: HttpHeaders, status: 0, statusText: "Unknown Error", url: "https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest", ok: false, …}
-log.service.ts:10 (2) ["Firebase Event", "send_error"]
-log.service.ts:10 (2) ["Firebase Event", "send_error"]
-2log.service.ts:21 Failed to send data from cache to kafka: Error: Failed to get latest Kafka schema versions: Http failure response for https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest: 0 Unknown Error Error: ...
-``` 
+```
+and various other schema URLs
+
+Add cors to schema in nginx, i.e. etc/webserver/nginx.conf
+```
+    location /schema/ {
+      # at least for local dev armt app access ?!
+      include cors.conf;
+...
+```
+
+But also 404 for 
+https://128.243.22.74/schema/subjects/questionnaire_app_event-key/versions/latest
+https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest
+
+some 401s initially:
+POST `https://128.243.22.74/kafka/topics/questionnaire_completion_log` x4
+https://128.243.22.74/kafka/topics/questionnaire_esm x1
+https://128.243.22.74/kafka/topics/questionnaire_timezone x2
+
+but now working... (schema issue in cached data?)
+
+Sort of works on emulator, but have to restart/re-open, e.g. after enter token?

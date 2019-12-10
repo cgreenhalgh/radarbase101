@@ -40,6 +40,7 @@ git checkout lite
 changes:
 - nginx.conf files changed to let nginx start without proxied containers running (dns check) `dcompose-stack/radar-cp-hadoop-stack/etc/webserver/nginx.nossl.conf.template` /
 `.../nginx.conf.template`
+- nginx.conf.template add cors config to schema (at least needed for ionic browser access)
 - docker-compose-lite.yml with non-replicated zookeeper, kafka and hadoop
 
 Lite start (after config)
