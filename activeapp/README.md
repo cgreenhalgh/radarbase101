@@ -295,6 +295,8 @@ But also 404 for
 https://128.243.22.74/schema/subjects/questionnaire_app_event-key/versions/latest
 https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/latest
 
+= missing topic!
+
 some 401s initially:
 POST `https://128.243.22.74/kafka/topics/questionnaire_completion_log` x4
 https://128.243.22.74/kafka/topics/questionnaire_esm x1
@@ -303,3 +305,29 @@ https://128.243.22.74/kafka/topics/questionnaire_timezone x2
 but now working... (schema issue in cached data?)
 
 Sort of works on emulator, but have to restart/re-open, e.g. after enter token?
+
+## Protcol definition
+
+(note, browser app seems to deliver all instruments immediately)
+
+In [protocol git repo](https://github.com/RADAR-Base/RADAR-aRMT-protocols)
+in directory with name matching project name (possibly with ' ' -> '-')
+
+Most questionnaires appear with avsc (schema type) `questionnaire`, 
+although thincit appears at least once as `notification`.
+
+E.g. see
+[test1](https://github.com/cgreenhalgh/RADAR-aRMT-protocols/blob/master/test1/protocol.json)
+
+### questionnaire definitions
+
+Current questionnaires are in 
+[this repo](https://github.com/RADAR-base/RADAR-REDCap-aRMT-Definitions/)
+under `questionnaires/QNAME`.
+
+These are (all?) auto-generated from REDCap definitions.
+
+[spec](https://radar-base.github.io/RADAR-aRMT-protocols/)
+
+E.g. see 
+[test_text](https://github.com/cgreenhalgh/RADAR-aRMT-protocols/blob/master/questionnaires/test_text/test_text_armt.json)
