@@ -77,6 +77,7 @@ That added the new Source Type.
 
 But, Not sure if it's related but now my apps won't authenticate with it (401).
 `https://128.243.22.74/managementportal/oauth/token`
+Seems the oauth client secret for the aRMT app was (re)set. Why?
 
 ### management portal
 
