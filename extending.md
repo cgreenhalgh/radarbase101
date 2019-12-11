@@ -39,6 +39,45 @@ and there is probably a '-m TOPIC' option to limit activity.
 Init.sh execs its arguments, so it should be possible to call radar-schemas-tools directly as args.
 Main commands are 'validate', 'list', 'create' and 'register'
 
+### updating
+
+Add specifications to appropriate sub-dir of etc/schemas/specifications (e.g. active, passive)
+Add avro types to appropriate sub-dir of etc/schemas/common
+
+List information in combined specifications (including above):
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml run --rm kafka-init radar-schemas-tools list merged
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml run --rm kafka-init radar-schemas-tools list --raw merged
+```
+
+Register a new topic from one of those specifications:
+
+Note, no easy way to extract params from docker-compose like this, so fix 
+- `-p` partitions
+- `-r` replication
+- `-b` brokers
+- zookeeper config
+- topic(s) to register (after `-m` for match)
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml run --rm kafka-init radar-schemas-tools create -p 1 -r 1 -b 1 zookeeper-1:2181 -m questionnaire_app_event merged
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml run --rm kafka-init radar-schemas-tools register -m questionnaire_app_event http://schema-registry-1:8081 merged
+```
+
+Do i need to restart the catalog service? probably
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml restart catalog-server
+```
+
+And I'm pretty sure you need to restart the management portal in order to update 
+its data source information.
+```
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml restart managementportal-app
+```
+That added the new Source Type.
+
+But, Not sure if it's related but now my apps won't authenticate with it (401).
+`https://128.243.22.74/managementportal/oauth/token`
+
 ### management portal
 
 A catalogue server is runusing kafka-init radar-schemas-tools serve /schema/merged
@@ -51,6 +90,17 @@ from [management portal](https://github.com/RADAR-base/ManagementPortal)
 ./src/main/java/org/radarcns/management/config/SourceTypeLoader.java
 
 Runs only on start-up.
+
+## active app
+
+Where does the active app version come from when registering?
+(producer "RADAR", Model "aRMT-App", catalogue version "1.4.3")
+Should be [provided by app](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/72122477/Integrating+new+Apps+and+Devices+into+RADAR-base+platform)
+when registering itself as a new source for the subject 
+(after pairing QR permission grant).
+
+This is configured in `./www/assets/data/defaultConfig.ts`, 
+`sourceTypeCatalogVersion`.
 
 ## Schemas
 

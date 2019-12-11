@@ -297,6 +297,10 @@ https://128.243.22.74/schema/subjects/questionnaire_app_event-value/versions/lat
 
 = missing topic!
 
+Slightly oddly, this source type is specified in the 1.5.0 catalog version, but
+not the 1.4.3 catalog version, and the latter is still the default for the 
+questionnaire app master branch (2019-12-11).
+
 some 401s initially:
 POST `https://128.243.22.74/kafka/topics/questionnaire_completion_log` x4
 https://128.243.22.74/kafka/topics/questionnaire_esm x1
