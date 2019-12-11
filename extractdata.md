@@ -35,6 +35,8 @@ Columns include (existing CSV - see below):
 - value.timeReceived
 - value... (other value elements)
 
+Note, the HDFS export generates files TOPIC/partition=N/TOPIC-PNO-FROMSEQ-TOSEQ.avro.
+
 ## Developing
 
 [developing](https://docs.confluent.io/current/connect/devguide.html#connect-developing-simple-connector)
