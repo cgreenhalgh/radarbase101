@@ -127,26 +127,7 @@ Note, sensors run about 20Hz! lots of data...
 
 ### get data out?
 
-```
-docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml up -d radar-hdfs-connector 
-```
- 
-see
-[wiki hadoop](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/49512463/Guide+to+RADAR+HDFS+Connector)
-and
-[wiki csv formats](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/491880449/Data+Extraction)
-```
-To extract data from HDFS
-Create a directory to collect written data
-
-sudo mkdir <dir-name>
-Change current directory of command line to that directory
-
-cd <dir-name>
-Extract data from HDFS
-
-hadoop fs -get /topics
-```
+see [extractdata.md](extractdata.md)
 
 ## Install
 
