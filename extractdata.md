@@ -2,6 +2,20 @@
 
 Using Kafka connect
 
+## CSV export
+
+my work-in-progress
+[CsvFile-Sink-Connector](https://github.com/cgreenhalgh/CsvFile-Sink-Connector.git)
+
+Check it out in .../images
+
+```
+cd images
+git clone https://github.com/cgreenhalgh/CsvFile-Sink-Connector.git
+cd ..
+docker-compose -f docker-compose-lite.yml -f optional-services-lite.yml up -d radar-csvfile-connector
+```
+
 ## design
 
 Each data source type maps to a kafka topic, so all values flowing through 
@@ -145,6 +159,14 @@ hadoop fs -get /topics
 
 see
 [post](https://radar-base.org/index.php/2019/02/14/accessing-the-data-collected-using-radar-base/)
+
+this
+[repo](https://github.com/RADAR-base/Restructure-HDFS-topic)
+
+Core avro->csv convertor, 
+[CsvAvroConverter.kt](https://github.com/RADAR-base/Restructure-HDFS-topic/blob/master/src/main/java/org/radarbase/hdfs/format/CsvAvroConverter.kt)
+
+NB, also uses `com.opencsv.CSVWriter` and `java.util.Base64`.
 
 `study->participant->data topics->date_hour.csv`
 
